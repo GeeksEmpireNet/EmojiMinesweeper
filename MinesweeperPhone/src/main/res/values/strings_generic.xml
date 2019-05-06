@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="emojiSetONE"> 🐣 💣 🚧 ◻️ </string>
+    <string name="emojiSetTWO"> 🍰 👾 📌 ◻️ </string>
+    <string name="emojiSetTHREE"> 🌷 ⚡️ 🐞 ◻️ </string>
+    <string name="emojiSetFOUR"> ⭕️ ❌ ❗️ ✖️️ </string>
+    <string name="emojiSetFIVE"> ☀ ⚡ ☔ ☁️ </string>
+
+    <string name="play_store_link" translatable="false">http://play.google.com/store/apps/details?id=</string>
+    <string name="link_play_store" translatable="false">https://play.google.com/store/apps/details?id=</string>
+    <string name="link_floating_shortcuts" translatable="false">https://goo.gl/8uwlZ1</string>
+    <string name="link_super_shortcuts" translatable="false">https://goo.gl/ErlYCO</string>
+    <string name="link_pin_pic" translatable="false">https://goo.gl/9uW1gf</string>
+
+    <string name="link_plus" translatable="false">https://plus.google.com/+GeeksEmpire</string>
+    <string name="link_twitter" translatable="false">https://twitter.com/GeeksEmpire</string>
+    <string name="link_facebook" translatable="false">https://www.facebook.com/GeeksEmpire</string>
+    <string name="link_osp" translatable="false">https://geeksempirenet.github.io/</string>
+
+    <string name="integerVersionCodeNewUpdatePhone" translatable="false">integer_version_code_new_update_phone</string>
+    <string name="stringVersionNameNewUpdatePhone" translatable="false">string_version_name_new_update_phone</string>
+    <string name="stringUpcomingChangeLogPhone" translatable="false">string_upcoming_change_log_phone</string>
+    <string name="stringUpcomingChangeLogSummaryPhone" translatable="false">string_upcoming_change_log_summary_phone</string>
+
+    <string name="ad_app_id" translatable="false">ca-app-pub-2920235108594210~7742663078</string>
+    <string name="ad_unit_reward" translatable="false">ca-app-pub-2920235108594210/6750937614</string>
+    <string name="ad_unit_interstitial">ca-app-pub-2920235108594210/3500206945</string>
+
+</resources>

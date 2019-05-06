@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "731851766476",
+    "firebase_url": "https://minesweeper-emoji.firebaseio.com",
+    "project_id": "minesweeper-emoji",
+    "storage_bucket": "minesweeper-emoji.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731851766476:android:69c777aa43d1dbdd",
+        "android_client_info": {
+          "package_name": "net.geekstools.emoji.minesweeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731851766476-b6qhfago2g80s6tjah7hmjpg1g0jq67v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.geekstools.emoji.minesweeper",
+            "certificate_hash": "b7f6b213fb6850ff310234a51c71d20e8b9488ce"
+          }
+        },
+        {
+          "client_id": "731851766476-jlknmbflctq8qbdhuc78ubug4u0vgu65.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyButxEnqHGkfavpb_-kYaPH4fqIHLw0yzY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731851766476-jlknmbflctq8qbdhuc78ubug4u0vgu65.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

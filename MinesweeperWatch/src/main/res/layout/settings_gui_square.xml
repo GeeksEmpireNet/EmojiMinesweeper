@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="@android:color/transparent"
+        tools:context=".Util.SettingsGUI"
+        android:id="@+id/settingsGUI">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:id="@+id/tableSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputColumn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:imeOptions="actionDone"
+                android:textColorHint="@color/default_color_trans_low">
+
+                <EditText
+                    android:id="@+id/columnCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/columnHint"
+                    android:textColorHint="@color/default_color_trans_low"
+                    android:textSize="12sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:imeOptions="actionDone"
+                android:textColorHint="@color/default_color_trans_low">
+
+                <EditText
+                    android:id="@+id/rowCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/rowHint"
+                    android:textColorHint="@color/default_color_trans_low"
+                    android:textSize="12sp" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/bombsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableSize"
+            android:imeOptions="actionDone"
+            android:textColorHint="@color/default_color_trans_low">
+
+            <EditText
+                android:id="@+id/bombsCount"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:hint="@string/bombsHint"
+                android:textColorHint="@color/default_color_trans_low"
+                android:textSize="12sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/emojiHints"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_below="@id/bombsInput"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@string/emojiSetHint"
+            android:textSize="12sp"
+            android:textColor="@color/default_color_trans_low" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emojiHints"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdge="vertical"
+            android:fadingEdgeLength="3dp"
+            android:cacheColorHint="@android:color/transparent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/emojiSets"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/backSave"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/draw_back" />
+
+</RelativeLayout>

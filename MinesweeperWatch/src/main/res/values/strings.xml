@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="app_name">Minesweeper</string>
+    <string name="tipPlay">Numbers Are Amount of Bombs Around You</string>
+    <string name="internetConnection">Internet Connection Required For Loading New Emojis Design</string>
+
+    <string name="checkPhone">Please, Support Me By Installing My Apps On Your Smartphone 😉 👍 </string>
+
+    <string name="columnHint">Columns ⬇️ </string>
+    <string name="rowHint">Rows ➡️ </string>
+    <string name="bombsHint">Number of 💣 </string>
+    <string name="emojiSetHint">Emojis Set</string>
+    <string name="bombError">Too Many 💣 </string>
+    <string name="columnError">Too Few ➡️ </string>
+    <string name="rowError">Too Few ⬇️ </string>
+
+    <string name="updateAvailable">New Update Available | Click Here to Install…!</string>
+    <string name="rate">Please Rate &amp; Write Review</string>
+
+</resources>

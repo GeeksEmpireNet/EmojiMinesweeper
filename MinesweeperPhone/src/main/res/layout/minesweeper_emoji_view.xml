@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MinesweeperActivity">
+
+    <TextView
+        android:id="@+id/rewardVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/video_rewarded_background"
+        android:gravity="center"
+        android:text="@string/rewardedVideoInfo"
+        android:textColor="@color/light"
+        android:textSize="12sp"
+        android:visibility="invisible" />
+
+    <org.xwalk.core.XWalkView
+        android:id="@+id/tRexRun"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-51dp"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/rewardVideo"
+        android:background="@android:color/transparent" />
+
+    <ImageView
+        android:id="@+id/supportView"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="9dp"
+        android:src="@drawable/draw_support" />
+
+    <RelativeLayout
+        android:id="@+id/splashScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/default_color"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="113dp"
+            android:layout_height="113dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="23dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="@string/tipPlay"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
+</RelativeLayout>

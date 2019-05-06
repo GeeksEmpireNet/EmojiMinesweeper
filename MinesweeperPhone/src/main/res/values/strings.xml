@@ -1,0 +1,40 @@
+<resources>
+
+     <string name="rewardedVideoInfo" translatable="false">
+        \n
+        <big>Click to See Video Ads to Get
+        \n
+        💎  💎  💎 <b>Promotion Codes of Geeks Empire Premium Apps</b> 💎  💎  💎</big>
+        \n
+    </string>
+    <string name="rewardedVideoPromotionCode" translatable="false">
+        Upgrade to Geeks Empire Premium Apps
+        \n
+        💎💎💎  Rewarded to Get Promotion Codes  💎💎💎
+        \n
+        📩 Click Here to Request 📩
+    </string>
+    <string name="rewardedPromotionCodeTitle" translatable="false">Request Promotion Codes of Geeks Empire Premium Apps 💎 </string>
+
+    <string name="app_name">Minesweeper</string>
+    <string name="tipPlay">Numbers Are Amount of Bombs Around You</string>
+    <string name="internetConnection">Internet Connection Required For Loading New Emojis Design</string>
+
+    <string name="columnHint">Columns ⬇️ </string>
+    <string name="rowHint">Rows ➡️ </string>
+    <string name="bombsHint">Number of 💣 </string>
+    <string name="emojiSetHint">Emojis Set</string>
+    <string name="bombError">Too Many 💣 </string>
+    <string name="columnError">Too Few ➡️ </string>
+    <string name="rowError">Too Few ⬇️ </string>
+
+    <string name="updateAvailable">New Update Available | Click Here to Install…!</string>
+    <string name="rate">Please Rate &amp; Write Review</string>
+
+    <string name="supportTitle">Support Center</string>
+    <string name="supportDesc">Help &amp; Feedback</string>
+    <string name="support">Support@GeeksEmpire.net</string>
+    <string name="feedback_tag">Minesweeper Direct Help | Feedback</string>
+    <string name="alphaTitle">Thanks for Helping me</string>
+
+</resources>

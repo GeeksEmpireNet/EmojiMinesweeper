@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="GeeksEmpire" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:colorAccent">@color/default_color</item>
+        <item name="android:textColorPrimary">@color/dark</item>
+        <item name="android:background">@color/light</item>
+    </style>
+
+    <style name="GeeksEmpire.Dialogue.Day" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" tools:targetApi="22">
+        <item name="android:colorAccent">@color/default_color</item>
+        <item name="android:textColorPrimary">@color/dark</item>
+        <item name="android:background">@color/light</item>
+    </style>
+
+    <style name="Transparent" parent="@android:style/Theme.DeviceDefault.Light.Dialog.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:divider">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="GeeksEmpire.Swipe.NonDismiss.AppCompat" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowSwipeToDismiss">false</item>
+    </style>
+
+</resources>
