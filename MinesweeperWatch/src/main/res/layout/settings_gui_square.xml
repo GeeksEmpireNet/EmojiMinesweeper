@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputColumn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -40,9 +40,9 @@
                     android:hint="@string/columnHint"
                     android:textColorHint="@color/default_color_trans_low"
                     android:textSize="12sp" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputRow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -59,10 +59,10 @@
                     android:hint="@string/rowHint"
                     android:textColorHint="@color/default_color_trans_low"
                     android:textSize="12sp" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/bombsInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 android:hint="@string/bombsHint"
                 android:textColorHint="@color/default_color_trans_low"
                 android:textSize="12sp" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/emojiHints"

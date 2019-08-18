@@ -5,10 +5,9 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.webkit.JavascriptInterface;
 
 import net.geekstools.emoji.minesweeper.Util.SettingsGUI;
-
-import org.xwalk.core.JavascriptInterface;
 
 public class WebInterface {
 

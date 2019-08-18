@@ -22,7 +22,6 @@ import net.geekstools.emoji.minesweeper.BuildConfig
 import net.geekstools.emoji.minesweeper.R
 import java.io.FileOutputStream
 
-
 class FunctionsClass {
 
     lateinit var activity: Activity

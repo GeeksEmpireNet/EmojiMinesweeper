@@ -1,6 +1,7 @@
 package net.geekstools.emoji.minesweeper
 
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.*
 import android.content.res.Configuration
@@ -14,6 +15,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -23,17 +25,12 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import net.geekstools.emoji.minesweeper.Util.Functions.FunctionsClass
 import net.geekstools.emoji.minesweeper.Util.Functions.WebInterface
-import org.xwalk.core.XWalkActivity
-import org.xwalk.core.XWalkInitializer
-import org.xwalk.core.XWalkSettings
-import org.xwalk.core.XWalkView
 
-class MinesweeperActivity : XWalkActivity(), XWalkInitializer.XWalkInitListener {
+class MinesweeperActivity : Activity() {
 
     lateinit private var functionsClass: FunctionsClass
 
-    lateinit private var mineSweeper: XWalkView
-    lateinit private var xWalkInitializer: XWalkInitializer
+    lateinit private var mineSweeper: WebView
 
     lateinit var rewardVideo: TextView
     lateinit private var splashScreen: RelativeLayout
@@ -41,32 +38,34 @@ class MinesweeperActivity : XWalkActivity(), XWalkInitializer.XWalkInitListener 
 
     lateinit private var firebaseRemoteConfig: FirebaseRemoteConfig
 
-    override fun onXWalkReady() {
+    override fun onPointerCaptureChanged(hasCapture: Boolean) {
 
     }
 
-    override fun onXWalkInitStarted() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.minesweeper_emoji_view)
 
-    }
+        functionsClass = FunctionsClass(this@MinesweeperActivity, applicationContext)
 
-    override fun onXWalkInitCancelled() {
+        mineSweeper = findViewById<WebView>(R.id.tRexRun) as WebView
+        rewardVideo = findViewById<TextView>(R.id.rewardVideo) as TextView
+        splashScreen = findViewById<RelativeLayout>(R.id.splashScreen) as RelativeLayout
+        supportView = findViewById<ImageView>(R.id.supportView) as ImageView
 
-    }
+        val window: Window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.statusBarColor = getColor(R.color.default_color)
+        window.navigationBarColor = getColor(R.color.default_color)
 
-    override fun onXWalkInitFailed() {
+        val webSettings = mineSweeper.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.domStorageEnabled = true
+        webSettings.databaseEnabled = true
 
-    }
-
-    override fun onXWalkInitCompleted() {
-        val xWalkSettings = mineSweeper.settings
-        xWalkSettings.javaScriptEnabled = true
-        xWalkSettings.domStorageEnabled = true
-        xWalkSettings.databaseEnabled = true
-        xWalkSettings.cacheMode = XWalkSettings.LOAD_NO_CACHE
-
-        xWalkSettings.builtInZoomControls = false
-        xWalkSettings.textZoom = 113
-        xWalkSettings.setInitialPageScale(333.0f)
+        webSettings.builtInZoomControls = false
+        webSettings.textZoom = 113
         if (functionsClass.networkConnection()) {
             mineSweeper.addJavascriptInterface(WebInterface(this@MinesweeperActivity, applicationContext), "Android")
             mineSweeper.loadUrl("file:///android_asset/minesweeper_phone/index.html")
@@ -106,30 +105,6 @@ class MinesweeperActivity : XWalkActivity(), XWalkInitializer.XWalkInitListener 
             }
             colorAnimationNav.start()
         }, 777)
-    }
-
-    override fun onPointerCaptureChanged(hasCapture: Boolean) {
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        xWalkInitializer = XWalkInitializer(this@MinesweeperActivity, applicationContext)
-        xWalkInitializer.initAsync()
-        setContentView(R.layout.minesweeper_emoji_view)
-
-        functionsClass = FunctionsClass(this@MinesweeperActivity, applicationContext)
-
-        mineSweeper = findViewById<XWalkView>(R.id.tRexRun) as XWalkView
-        rewardVideo = findViewById<TextView>(R.id.rewardVideo) as TextView
-        splashScreen = findViewById<RelativeLayout>(R.id.splashScreen) as RelativeLayout
-        supportView = findViewById<ImageView>(R.id.supportView) as ImageView
-
-        val window: Window = window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.statusBarColor = getColor(R.color.default_color)
-        window.navigationBarColor = getColor(R.color.default_color)
 
         val intentFilter = IntentFilter()
         intentFilter.addAction("ENABLE_REWARDED_VIDEO")
