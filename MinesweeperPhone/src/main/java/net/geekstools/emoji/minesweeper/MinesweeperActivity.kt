@@ -22,8 +22,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import net.geekstools.emoji.minesweeper.Util.Functions.FunctionsClass
+import net.geekstools.emoji.minesweeper.Util.Functions.PublicVariable
 import net.geekstools.emoji.minesweeper.Util.Functions.WebInterface
 
 class MinesweeperActivity : Activity() {
@@ -108,6 +108,8 @@ class MinesweeperActivity : Activity() {
 
         val intentFilter = IntentFilter()
         intentFilter.addAction("ENABLE_REWARDED_VIDEO")
+        intentFilter.addAction("RELOAD_REWARDED_VIDEO")
+        intentFilter.addAction("REWARDED_PROMOTION_CODE")
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 if (intent.action == "ENABLE_REWARDED_VIDEO") {
@@ -116,16 +118,26 @@ class MinesweeperActivity : Activity() {
                             && functionsClass.readPreference(".NoAdsRewardedInfo", "Requested", false) == true) {
 
                         rewardVideo.text = Html.fromHtml("<br/><font color='#f2f7ff'>" +
-                                "<big>Please Click to See Rewarded Ads to<br/>" +
+                                "<big>Please Click to See Video Ads to<br/>" +
                                 "\uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E <b>Support Geeks Empire Open Source Projects</b> \uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E </big><br/>"
                                 + "</font>")
                     } else {
                         rewardVideo.text = Html.fromHtml("<br/><font color='#f2f7ff'>" +
-                                "<big>Click to See Rewarded Ads to Get<br/>" +
+                                "<big>Click to See Video Ads to Get<br/>" +
                                 "\uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E <b>Promotion Codes of Geeks Empire Premium Apps</b> \uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E </big><br/>"
                                 + "</font>")
-                        rewardVideo.append("$rewardedPromotionCode / 33" + Html.fromHtml("<br/>"))
+                        rewardVideo.append("$rewardedPromotionCode / 33")
                     }
+                    rewardVideo.visibility = View.VISIBLE
+                } else if (intent.action == "RELOAD_REWARDED_VIDEO") {
+                    rewardVideo.visibility = View.INVISIBLE
+                } else if (intent.action == "REWARDED_PROMOTION_CODE") {
+                    rewardVideo.setTextColor(getColor(R.color.light))
+                    rewardVideo.text = Html.fromHtml("<br/><font color='#f2f7ff'>" +
+                            "<big>Upgrade to Geeks Empire Premium Apps<br/>" +
+                            "\uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E <b>Rewarded to Get Promotion Codes</b> \uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E </big><br/>"
+                            + "\uD83D\uDCE9 Click Here to Request \uD83D\uDCE9"
+                            + "</font>")
                     rewardVideo.visibility = View.VISIBLE
                 }
             }
@@ -215,7 +227,8 @@ class MinesweeperActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
-        rewardVideo.visibility = View.VISIBLE
+        PublicVariable.eligibleToLoadShowAds = true
+
         val rewardedPromotionCode = functionsClass.readPreference(".NoAdsRewardedInfo", "RewardedPromotionCode", 0)
         if ((rewardedPromotionCode >= 33)
                 && functionsClass.readPreference(".NoAdsRewardedInfo", "Requested", false) == true) {
@@ -230,7 +243,7 @@ class MinesweeperActivity : Activity() {
             rewardVideo.setTextColor(getColor(R.color.light))
             rewardVideo.text = Html.fromHtml("<br/><font color='#f2f7ff'>" +
                     "<big>Upgrade to Geeks Empire Premium Apps<br/>" +
-                    "\uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E <b>Rewarded to Get Promotion Codes</b> \uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E </big>"
+                    "\uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E <b>Rewarded to Get Promotion Codes</b> \uD83D\uDC8E  \uD83D\uDC8E  \uD83D\uDC8E </big><br/>"
                     + "\uD83D\uDCE9 Click Here to Request \uD83D\uDCE9<br/>"
                     + "</font>")
             rewardVideo.visibility = View.VISIBLE
@@ -243,10 +256,6 @@ class MinesweeperActivity : Activity() {
         }
 
         firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-        val configSettings: FirebaseRemoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .build()
-        firebaseRemoteConfig.setConfigSettings(configSettings)
         firebaseRemoteConfig.setDefaults(R.xml.remote_config_default)
         firebaseRemoteConfig.fetch(0)
                 .addOnCompleteListener(this@MinesweeperActivity, OnCompleteListener<Void> { task ->
@@ -266,6 +275,11 @@ class MinesweeperActivity : Activity() {
 
                     }
                 })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        PublicVariable.eligibleToLoadShowAds = false
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

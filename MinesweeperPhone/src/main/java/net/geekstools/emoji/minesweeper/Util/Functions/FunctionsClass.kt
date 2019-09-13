@@ -73,7 +73,18 @@ class FunctionsClass {
             }
 
             override fun onRewardedVideoAdClosed() {
-
+                val rewardedPromotionCode = readPreference(".NoAdsRewardedInfo", "RewardedPromotionCode", 0)
+                if (rewardedPromotionCode >= 33 && readPreference(".NoAdsRewardedInfo", "Requested", false) == false) {
+                    context.sendBroadcast(Intent("REWARDED_PROMOTION_CODE"))
+                } else {
+                    context.sendBroadcast(Intent("RELOAD_REWARDED_VIDEO"))
+                    rewardedVideoAdInstance.loadAd(context.getString(R.string.ad_unit_reward), AdRequest.Builder()
+                            .addTestDevice("CDCAA1F20B5C9C948119E886B31681DE")
+                            .addTestDevice("D101234A6C1CF51023EE5815ABC285BD")
+                            .addTestDevice("65B5827710CBE90F4A99CE63099E524C")
+                            .addTestDevice("DD428143B4772EC7AA87D1E2F9DA787C")
+                            .build())
+                }
             }
 
             override fun onRewarded(rewardItem: RewardItem) {
@@ -91,15 +102,18 @@ class FunctionsClass {
 
             override fun onRewardedVideoAdFailedToLoad(failedCode: Int) {
                 if (BuildConfig.DEBUG) {
-                    println("Ad Failed $failedCode")
+                    println("*** Ad Failed $failedCode | RewardedVideoAdInstance ***")
                 }
-                rewardedVideoAdInstance.loadAd(context.getString(R.string.ad_unit_reward), AdRequest.Builder()
-                        .addTestDevice("CDCAA1F20B5C9C948119E886B31681DE")
-                        .addTestDevice("D101234A6C1CF51023EE5815ABC285BD")
-                        .addTestDevice("65B5827710CBE90F4A99CE63099E524C")
-                        .addTestDevice("DD428143B4772EC7AA87D1E2F9DA787C")
-                        .addTestDevice("5901E5EE74F9B6652E05621140664A54")
-                        .build())
+
+                if (PublicVariable.eligibleToLoadShowAds) {
+                    rewardedVideoAdInstance.loadAd(context.getString(R.string.ad_unit_reward), AdRequest.Builder()
+                            .addTestDevice("CDCAA1F20B5C9C948119E886B31681DE")
+                            .addTestDevice("D101234A6C1CF51023EE5815ABC285BD")
+                            .addTestDevice("65B5827710CBE90F4A99CE63099E524C")
+                            .addTestDevice("DD428143B4772EC7AA87D1E2F9DA787C")
+                            .addTestDevice("5901E5EE74F9B6652E05621140664A54")
+                            .build())
+                }
             }
 
             override fun onRewardedVideoCompleted() {
@@ -138,7 +152,13 @@ class FunctionsClass {
             }
 
             override fun onAdFailedToLoad(errorCode: Int) {
-                interstitialAd.loadAd(adRequest)
+                if (BuildConfig.DEBUG) {
+                    println("*** Ad Failed $errorCode | InterstitialAd ***")
+                }
+
+                if (PublicVariable.eligibleToLoadShowAds) {
+                    interstitialAd.loadAd(adRequest)
+                }
             }
 
             override fun onAdOpened() {
