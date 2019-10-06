@@ -17,7 +17,6 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import com.google.android.wearable.intent.RemoteIntent
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import net.geekstools.emoji.minesweeper.Util.Functions.FunctionsClass
 import net.geekstools.emoji.minesweeper.Util.Functions.WebInterface
 import org.xwalk.core.XWalkInitializer
@@ -121,9 +120,8 @@ class MinesweeperActivity : WearableActivity(), XWalkInitializer.XWalkInitListen
         super.onStart()
 
         val resultReceiver = object : ResultReceiver(Handler()) {
-            override protected fun onReceiveResult(resultCode: Int, resultData: Bundle?) {
+            override fun onReceiveResult(resultCode: Int, resultData: Bundle?) {
                 if (resultCode == RemoteIntent.RESULT_OK) {
-                    println("RemoteIntent.RESULT_OK")
                     if (functionsClass.isFirstTimeOpen() || firebaseRemoteConfig.getBoolean(getString(R.string.booleanShowPlayStoreLinkDialogue))) {
                         ConfirmationOverlay()
                                 .setMessage(firebaseRemoteConfig.getString(getString(R.string.stringPlayStoreLinkDialogue)))
@@ -133,19 +131,15 @@ class MinesweeperActivity : WearableActivity(), XWalkInitializer.XWalkInitListen
                         functionsClass.savePreference(".UserState", "FirstTime", false)
                     }
                 } else if (resultCode == RemoteIntent.RESULT_FAILED) {
-                    println("RemoteIntent.RESULT_FAILED")
+
                 } else {
-                    println("Unexpected Result $resultCode")
+
                 }
             }
         }
 
         firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-        val configSettings = FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .build()
-        firebaseRemoteConfig.setConfigSettings(configSettings)
-        firebaseRemoteConfig.setDefaults(R.xml.remote_config_default)
+        firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_default)
         firebaseRemoteConfig.fetch(0)
                 .addOnCompleteListener(this@MinesweeperActivity) { task ->
                     if (task.isSuccessful) {

@@ -7,9 +7,9 @@ import android.graphics.drawable.Icon
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
-import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
 import android.text.Html
+import androidx.preference.PreferenceManager
 import net.geekstools.emoji.minesweeper.R
 
 class FunctionsClass {

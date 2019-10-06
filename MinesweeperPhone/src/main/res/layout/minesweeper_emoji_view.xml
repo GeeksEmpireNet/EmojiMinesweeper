@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:paddingBottom="5dp"
         android:layout_marginBottom="3dp"
         android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp"
@@ -39,7 +40,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="19dp"
         android:layout_marginTop="9dp"
-        android:src="@drawable/draw_support" />
+        android:src="@drawable/draw_support"
+        android:background="@android:color/transparent" />
 
     <RelativeLayout
         android:id="@+id/splashScreen"

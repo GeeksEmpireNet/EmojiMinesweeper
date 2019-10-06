@@ -119,7 +119,7 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
             if (bombsCount.text.toString().toInt() >= tableSize) {
                 Toast.makeText(applicationContext, getString(R.string.bombError), Toast.LENGTH_LONG).show()
             } else {
-                var activityOptions: ActivityOptions = ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                var activityOptions: ActivityOptions = ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.fade_in, android.R.anim.fade_out)
                 startActivity(Intent(applicationContext, MinesweeperActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), activityOptions.toBundle())
                 finish()

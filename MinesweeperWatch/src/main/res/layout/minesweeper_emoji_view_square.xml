@@ -38,6 +38,4 @@
             android:textSize="13sp"
             android:fontFamily="monospace" />
     </RelativeLayout>
-</androidx.wear.widget.BoxInsetLayout><!--
-
-        android.support.wear.widget.BoxInsetLayout-->
+</androidx.wear.widget.BoxInsetLayout>

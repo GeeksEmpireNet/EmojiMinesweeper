@@ -9,16 +9,15 @@ import android.graphics.drawable.Icon
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
-import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
 import android.text.Html
+import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardItem
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
-import net.geekstools.emoji.minesweeper.BuildConfig
 import net.geekstools.emoji.minesweeper.R
 import java.io.FileOutputStream
 
@@ -28,6 +27,10 @@ class FunctionsClass {
     lateinit var context: Context
 
     var API: Int
+
+    companion object {
+        var interstitialAd: InterstitialAd? = null
+    }
 
     init {
         API = Build.VERSION.SDK_INT
@@ -101,10 +104,6 @@ class FunctionsClass {
             }
 
             override fun onRewardedVideoAdFailedToLoad(failedCode: Int) {
-                if (BuildConfig.DEBUG) {
-                    println("*** Ad Failed $failedCode | RewardedVideoAdInstance ***")
-                }
-
                 if (PublicVariable.eligibleToLoadShowAds) {
                     rewardedVideoAdInstance.loadAd(context.getString(R.string.ad_unit_reward), AdRequest.Builder()
                             .addTestDevice("CDCAA1F20B5C9C948119E886B31681DE")
@@ -127,11 +126,21 @@ class FunctionsClass {
                 .addTestDevice("65B5827710CBE90F4A99CE63099E524C")
                 .addTestDevice("DD428143B4772EC7AA87D1E2F9DA787C")
                 .build()
-        val interstitialAd: InterstitialAd = InterstitialAd(context)
-        interstitialAd.adUnitId = context.getString(R.string.ad_unit_interstitial)
-        interstitialAd.setImmersiveMode(true)
-        interstitialAd.loadAd(adRequest)
-        interstitialAd.adListener = object : AdListener() {
+        if (interstitialAd == null) {
+            interstitialAd = InterstitialAd(context)
+            interstitialAd!!.adUnitId = context.getString(R.string.ad_unit_interstitial)
+            interstitialAd!!.setImmersiveMode(true)
+            interstitialAd!!.loadAd(adRequest)
+        } else {
+            if (interstitialAd!!.isLoaded) {
+                interstitialAd!!.show()
+            }
+
+            if (!!interstitialAd!!.isLoading) {
+                interstitialAd!!.loadAd(adRequest)
+            }
+        }
+        interstitialAd!!.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 val intentFilter = IntentFilter()
                 intentFilter.addAction("SHOW_INTERSTITIAL_ADS")
@@ -139,11 +148,11 @@ class FunctionsClass {
                 val broadcastReceiver = object : BroadcastReceiver() {
                     override fun onReceive(context: Context, intent: Intent) {
                         if (intent.action == "SHOW_INTERSTITIAL_ADS") {
-                            if (interstitialAd.isLoaded) {
-                                interstitialAd.show()
+                            if (interstitialAd!!.isLoaded) {
+                                interstitialAd!!.show()
                             }
                         } else if (intent.action == "LOAD_INTERSTITIAL_ADS") {
-                            interstitialAd.loadAd(adRequest)
+                            interstitialAd!!.loadAd(adRequest)
 
                         }
                     }
@@ -152,12 +161,8 @@ class FunctionsClass {
             }
 
             override fun onAdFailedToLoad(errorCode: Int) {
-                if (BuildConfig.DEBUG) {
-                    println("*** Ad Failed $errorCode | InterstitialAd ***")
-                }
-
                 if (PublicVariable.eligibleToLoadShowAds) {
-                    interstitialAd.loadAd(adRequest)
+                    interstitialAd!!.loadAd(adRequest)
                 }
             }
 
@@ -174,7 +179,9 @@ class FunctionsClass {
             }
 
             override fun onAdClosed() {
-
+                if (PublicVariable.eligibleToLoadShowAds) {
+                    interstitialAd!!.loadAd(adRequest)
+                }
             }
         }
     }

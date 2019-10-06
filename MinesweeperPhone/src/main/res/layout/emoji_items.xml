@@ -7,4 +7,5 @@
     android:paddingEnd="3dp"
     android:gravity="center"
     android:text="@string/emojiSetTWO"
+    android:textColor="@color/default_color"
     android:textSize="33sp" />

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
 
     <RelativeLayout
@@ -30,17 +31,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/default_color_trans_low">
+                android:layout_margin="1dp"
+                android:imeOptions="actionNext"
+                android:textColorHint="@color/default_color_transparent_low"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxStrokeColor="@color/default_color_game"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/default_color_light"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/yellow">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/columnCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:hint="@string/columnHint"
-                    android:textColorHint="@color/default_color_trans_low"
+                    android:textColorHint="@color/default_color_transparent_low"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,17 +63,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/default_color_trans_low">
+                android:layout_margin="1dp"
+                android:imeOptions="actionNext"
+                android:textColorHint="@color/default_color_transparent_low"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxStrokeColor="@color/default_color_game"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/default_color_light"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/yellow">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/rowCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:hint="@string/rowHint"
-                    android:textColorHint="@color/default_color_trans_low"
+                    android:textColorHint="@color/default_color_transparent_low"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -69,17 +96,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tableSize"
+            android:layout_margin="1dp"
             android:imeOptions="actionDone"
-            android:textColorHint="@color/default_color_trans_low">
+            android:textColorHint="@color/default_color_transparent_low"
+            app:boxBackgroundMode="outline"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:boxCornerRadiusTopStart="7dp"
+            app:boxCornerRadiusTopEnd="7dp"
+            app:boxCornerRadiusBottomStart="7dp"
+            app:boxCornerRadiusBottomEnd="7dp"
+            app:boxStrokeColor="@color/default_color_game"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:hintTextColor="@color/default_color_light"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/yellow">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/bombsCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:hint="@string/bombsHint"
-                android:textColorHint="@color/default_color_trans_low"
+                android:textColorHint="@color/default_color_transparent_low"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +134,7 @@
             android:paddingEnd="4dp"
             android:text="@string/emojiSetHint"
             android:textSize="15sp"
-            android:textColor="@color/default_color_trans_low" />
+            android:textColor="@color/default_color_transparent_low" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -111,7 +151,7 @@
                 android:id="@+id/emojiSets"
                 android:layout_width="match_parent"
                 android:layout_height="67dp"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical" />
         </ScrollView>
 
     </RelativeLayout>

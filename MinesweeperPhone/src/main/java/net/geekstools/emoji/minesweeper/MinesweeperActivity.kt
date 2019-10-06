@@ -87,16 +87,20 @@ class MinesweeperActivity : Activity() {
                     splashScreen.visibility = View.INVISIBLE
                 }
 
-                override fun onAnimationRepeat(animation: Animation) {}
+                override fun onAnimationRepeat(animation: Animation) {
+
+                }
             })
 
             val colorAnimationStatus: ValueAnimator = ValueAnimator.ofArgb(window.navigationBarColor, getColor(R.color.white))
+            colorAnimationStatus.duration = 333
             colorAnimationStatus.addUpdateListener { animator ->
                 window.statusBarColor = animator.animatedValue as Int
             }
             colorAnimationStatus.start()
 
             val colorAnimationNav: ValueAnimator = ValueAnimator.ofArgb(window.navigationBarColor, if (functionsClass.returnAPI() > 25) getColor(R.color.white) else getColor(R.color.grey))
+            colorAnimationStatus.duration = 333
             colorAnimationNav.addUpdateListener { animator ->
                 if (functionsClass.returnAPI() > 25) {
                     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
@@ -256,7 +260,7 @@ class MinesweeperActivity : Activity() {
         }
 
         firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-        firebaseRemoteConfig.setDefaults(R.xml.remote_config_default)
+        firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_default)
         firebaseRemoteConfig.fetch(0)
                 .addOnCompleteListener(this@MinesweeperActivity, OnCompleteListener<Void> { task ->
                     if (task.isSuccessful) {

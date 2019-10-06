@@ -10,11 +10,14 @@ import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.settings_gui.*
 import net.geekstools.emoji.minesweeper.MinesweeperActivity
 import net.geekstools.emoji.minesweeper.R
 import net.geekstools.emoji.minesweeper.Util.Functions.FunctionsClass
+import net.geekstools.emoji.minesweeper.Util.Functions.PublicVariable
 import net.geekstools.emoji.minesweeper.Util.Functions.WebInterface
 import java.util.*
 
@@ -23,14 +26,6 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
 
     lateinit var functionsClass: FunctionsClass
     lateinit var webInterface: WebInterface
-
-    lateinit var bombsCount: EditText
-    lateinit var columnCount: EditText
-    lateinit var rowCount: EditText
-
-    lateinit var backSave: ImageView
-
-    lateinit var emojiSets: LinearLayout
 
     lateinit var emojiMap: LinkedHashMap<String, Int>
 
@@ -53,17 +48,41 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
 
         emojiMap = LinkedHashMap<String, Int>()
 
-        bombsCount = findViewById<EditText>(R.id.bombsCount) as EditText
-        columnCount = findViewById<EditText>(R.id.columnCount) as EditText
-        rowCount = findViewById<EditText>(R.id.rowCount) as EditText
-
-        backSave = findViewById<ImageView>(R.id.backSave) as ImageView
-
-        emojiSets = findViewById<LinearLayout>(R.id.emojiSets) as LinearLayout
-
         bombsCount.setText(webInterface.bombs.toString())
         columnCount.setText(webInterface.column.toString())
         rowCount.setText(webInterface.row.toString())
+
+        columnCount.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                try {
+                    if (columnCount.text.toString().toInt() < 9) {
+                        Toast.makeText(applicationContext, getString(R.string.columnError), Toast.LENGTH_LONG).show()
+                    } else {
+                        functionsClass.saveDefaultPreference("Column", columnCount.text.toString().toInt())
+                        functionsClass.saveDefaultPreference("PreferencesChanged", true)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            true
+        }
+
+        rowCount.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                try {
+                    if (rowCount.text.toString().toInt() < 7) {
+                        Toast.makeText(applicationContext, getString(R.string.rowError), Toast.LENGTH_LONG).show()
+                    } else {
+                        functionsClass.saveDefaultPreference("Row", rowCount.text.toString().toInt())
+                        functionsClass.saveDefaultPreference("PreferencesChanged", true)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            true
+        }
 
         bombsCount.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -85,50 +104,48 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
             true
         }
 
-        columnCount.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+        backSave.setOnClickListener {
+            val tableSize: Int = webInterface.column * webInterface.row
+            if (bombsCount.text.toString().toInt() >= tableSize) {
+                Toast.makeText(applicationContext, getString(R.string.bombError), Toast.LENGTH_LONG).show()
+            } else {
+                //Column
                 try {
                     if (columnCount.text.toString().toInt() < 9) {
                         Toast.makeText(applicationContext, getString(R.string.columnError), Toast.LENGTH_LONG).show()
                     } else {
                         functionsClass.saveDefaultPreference("Column", columnCount.text.toString().toInt())
                         functionsClass.saveDefaultPreference("PreferencesChanged", true)
-
-                        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.hideSoftInputFromWindow(textView.windowToken, 0)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }
-            true
-        }
 
-        rowCount.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                //Row
                 try {
                     if (rowCount.text.toString().toInt() < 7) {
                         Toast.makeText(applicationContext, getString(R.string.rowError), Toast.LENGTH_LONG).show()
                     } else {
                         functionsClass.saveDefaultPreference("Row", rowCount.text.toString().toInt())
                         functionsClass.saveDefaultPreference("PreferencesChanged", true)
-
-                        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.hideSoftInputFromWindow(textView.windowToken, 0)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }
-            true
-        }
 
-        backSave.setOnClickListener {
-            val tableSize: Int = webInterface.column * webInterface.row
-            if (bombsCount.text.toString().toInt() >= tableSize) {
-                Toast.makeText(applicationContext, getString(R.string.bombError), Toast.LENGTH_LONG).show()
-            } else {
-                var activityOptions: ActivityOptions = ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                //Bomb
+                try {
+                    if (bombsCount.text.toString().toInt() >= tableSize) {
+                        Toast.makeText(applicationContext, getString(R.string.bombError), Toast.LENGTH_LONG).show()
+                    } else {
+                        functionsClass.saveDefaultPreference("Bomb", bombsCount.text.toString().toInt())
+                        functionsClass.saveDefaultPreference("PreferencesChanged", true)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+                var activityOptions: ActivityOptions = ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.fade_in, android.R.anim.fade_out)
                 startActivity(Intent(applicationContext, MinesweeperActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), activityOptions.toBundle())
                 finish()
@@ -145,10 +162,12 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+        PublicVariable.eligibleToLoadShowAds = true
     }
 
     override fun onPause() {
         super.onPause()
+        PublicVariable.eligibleToLoadShowAds = false
     }
 
     override fun onClick(view: View?) {
@@ -167,7 +186,43 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
         if (bombsCount.text.toString().toInt() >= tableSize) {
             Toast.makeText(applicationContext, getString(R.string.bombError), Toast.LENGTH_LONG).show()
         } else {
-            var activityOptions: ActivityOptions = ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            //Column
+            try {
+                if (columnCount.text.toString().toInt() < 9) {
+                    Toast.makeText(applicationContext, getString(R.string.columnError), Toast.LENGTH_LONG).show()
+                } else {
+                    functionsClass.saveDefaultPreference("Column", columnCount.text.toString().toInt())
+                    functionsClass.saveDefaultPreference("PreferencesChanged", true)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            //Row
+            try {
+                if (rowCount.text.toString().toInt() < 7) {
+                    Toast.makeText(applicationContext, getString(R.string.rowError), Toast.LENGTH_LONG).show()
+                } else {
+                    functionsClass.saveDefaultPreference("Row", rowCount.text.toString().toInt())
+                    functionsClass.saveDefaultPreference("PreferencesChanged", true)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            //Bomb
+            try {
+                if (bombsCount.text.toString().toInt() >= tableSize) {
+                    Toast.makeText(applicationContext, getString(R.string.bombError), Toast.LENGTH_LONG).show()
+                } else {
+                    functionsClass.saveDefaultPreference("Bomb", bombsCount.text.toString().toInt())
+                    functionsClass.saveDefaultPreference("PreferencesChanged", true)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            var activityOptions: ActivityOptions = ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.fade_in, android.R.anim.fade_out)
             startActivity(Intent(applicationContext, MinesweeperActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), activityOptions.toBundle())
             finish()
@@ -186,7 +241,7 @@ class SettingsGUI : AppCompatActivity(), View.OnClickListener {
                 getString(R.string.emojiSetFIVE)
         )
         for ((emojiIndex, emojiSet) in emojiSetsItems.withIndex()) {
-            emojiMap.put(emojiSet, emojiIndex)
+            emojiMap[emojiSet] = emojiIndex
 
             val itemsEmoji = layoutInflater.inflate(R.layout.emoji_items, null)
             val itemEmoji = itemsEmoji.findViewById<TextView>(R.id.emojiSet)
